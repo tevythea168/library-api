@@ -10,17 +10,33 @@ class AuthorController extends Controller
 {
     public function index()
     {
-        return Author::all();
+        return response()->json([
+            'success' => true,
+            'message' => 'Authors retrieved successfully',
+            'data' => Author::all()
+        ], 200);
     }
 
     public function store(Request $request)
     {
-        return Author::create($request->all());
+        $author = Author::create($request->all());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Author created successfully',
+            'data' => $author
+        ], 201);
     }
 
     public function show(string $id)
     {
-        return Author::findOrFail($id);
+        $author = Author::findOrFail($id);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Author retrieved successfully',
+            'data' => $author
+        ], 200);
     }
 
     public function update(Request $request, string $id)
@@ -29,7 +45,11 @@ class AuthorController extends Controller
 
         $author->update($request->all());
 
-        return $author;
+        return response()->json([
+            'success' => true,
+            'message' => 'Author updated successfully',
+            'data' => $author
+        ], 200);
     }
 
     public function destroy(string $id)
@@ -37,7 +57,8 @@ class AuthorController extends Controller
         Author::destroy($id);
 
         return response()->json([
-            'message' => 'Deleted successfully'
-        ]);
+            'success' => true,
+            'message' => 'Author deleted successfully'
+        ], 200);
     }
 }

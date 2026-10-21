@@ -10,17 +10,33 @@ class BookController extends Controller
 {
     public function index()
     {
-        return Book::all();
+        return response()->json([
+            'success' => true,
+            'message' => 'Books retrieved successfully',
+            'data' => Book::all()
+        ], 200);
     }
 
     public function store(Request $request)
     {
-        return Book::create($request->all());
+        $book = Book::create($request->all());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Book created successfully',
+            'data' => $book
+        ], 201);
     }
 
     public function show(string $id)
     {
-        return Book::findOrFail($id);
+        $book = Book::findOrFail($id);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Book retrieved successfully',
+            'data' => $book
+        ], 200);
     }
 
     public function update(Request $request, string $id)
@@ -29,7 +45,11 @@ class BookController extends Controller
 
         $book->update($request->all());
 
-        return $book;
+        return response()->json([
+            'success' => true,
+            'message' => 'Book updated successfully',
+            'data' => $book
+        ], 200);
     }
 
     public function destroy(string $id)
@@ -37,7 +57,8 @@ class BookController extends Controller
         Book::destroy($id);
 
         return response()->json([
-            'message' => 'Deleted successfully'
-        ]);
+            'success' => true,
+            'message' => 'Book deleted successfully'
+        ], 200);
     }
 }
