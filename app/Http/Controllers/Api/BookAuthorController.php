@@ -10,11 +10,7 @@ class BookAuthorController extends Controller
 {
     public function index()
     {
-        return response()->json([
-            'success' => true,
-            'message' => 'Book authors retrieved successfully',
-            'data' => BookAuthor::all()
-        ], 200);
+        return response()->json(BookAuthor::all());
     }
 
     public function store(Request $request)
